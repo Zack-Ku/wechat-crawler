@@ -11,6 +11,7 @@ for i in friends:
     signature = rep.sub("", signature)
     print(i["NickName"] + " " +signature)
     tList.append(signature)
+    tList.append(i["NickName"]) # 加上好友昵称
 
 # 拼接字符串
 text = "".join(tList)
@@ -19,7 +20,7 @@ text = "".join(tList)
 import jieba
 wordlist_jieba = jieba.cut(text, cut_all=True)
 wl_space_split = " ".join(wordlist_jieba)
-
+# print(wl_space_split)
 # wordcloud词云
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud, ImageColorGenerator
@@ -29,12 +30,13 @@ import PIL.Image as Image
 
 
 d = os.path.dirname(__file__)
+fontPath = 'C:\Windows\Fonts\SIMYOU' #windowns
 # 更改目录下Wordcloud生成图片，如：xiaohuangren.jpg
 alice_coloring = np.array(Image.open(os.path.join(d, "xiaohuangren.jpg")))
 # win系统需要更改font路径，如：C:\Windows\Fonts\msyhbd.ttc
 my_wordcloud = WordCloud(background_color="white", max_words=2000, mask=alice_coloring,
                          max_font_size=40, random_state=42,
-                         font_path='/usr/share/fonts/truetype/wqy/wqy-microhei.ttc')\
+                         font_path=fontPath)\
     .generate(wl_space_split)
 
 image_colors = ImageColorGenerator(alice_coloring)
